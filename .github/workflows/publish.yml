@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        TOOLS_VERSION: 30.0.2
-        PLATFORM: [30, 29, 28, 27]
+        PLATFORM: [android-30, android-29, android-28, android-27]
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -20,5 +19,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         build-args: |
-          TOOLS_VERSION=${{ matrix.TOOLS_VERSION }}
           PLATFORM=${{ matrix.PLATFORM }}
