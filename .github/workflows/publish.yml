@@ -1,0 +1,24 @@
+on:
+  push:
+    tags:
+    - '*'
+
+name: publish
+
+jobs:
+  default:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        TOOLS_VERSION: 30.0.2
+        PLATFORM: [30, 29, 28, 27]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build Docker Image
+      uses: docker/build-push-action@v2
+      with:
+        build-args: |
+          TOOLS_VERSION=${{ matrix.TOOLS_VERSION }}
+          PLATFORM=${{ matrix.PLATFORM }}
